@@ -17,6 +17,7 @@ import MessagePage from './pages/MessagePage';
 import SettingsPage from './pages/SettingsPage';
 import ProfilePage from './pages/ProfilePage';
 import { useState, useMemo } from 'react';
+import { ThemeProviderCustom } from './context/ThemeContext';
 
 // Protected route component
 const ProtectedRoute = ({ children }) => {
@@ -104,32 +105,34 @@ function App() {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <AlertProvider>
           <AuthProvider>
-            <Router>
-              <AlertManager />
-              <Routes>
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route
-                  path="/"
-                  element={
-                    <ProtectedRoute>
-                      <Layout toggleTheme={toggleTheme} mode={mode} />
-                    </ProtectedRoute>
-                  }
-                >
-                  <Route index element={<Navigate to="/dashboard" replace />} />
-                  <Route path="dashboard" element={<DashboardPage />} />
-                  <Route path="transactions" element={<TransactionsPage />} />
-                  <Route path="analytics" element={<AnalyticsPage />} />
-                  <Route path="wallet" element={<WalletPage />} />
-                  {/* <Route path="personal" element={<PersonalPage />} /> */}
-                  <Route path="message" element={<MessagePage />} />
-                  <Route path="settings" element={<SettingsPage />} />
-                  <Route path="profile" element={<ProfilePage />} />
-                </Route>
-                <Route path="*" element={<Navigate to="/dashboard" replace />} />
-              </Routes>
-            </Router>
+            <ThemeProviderCustom mode={mode} toggleTheme={toggleTheme}>
+              <Router>
+                <AlertManager />
+                <Routes>
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
+                  <Route
+                    path="/"
+                    element={
+                      <ProtectedRoute>
+                        <Layout toggleTheme={toggleTheme} mode={mode} />
+                      </ProtectedRoute>
+                    }
+                  >
+                    <Route index element={<Navigate to="/dashboard" replace />} />
+                    <Route path="dashboard" element={<DashboardPage />} />
+                    <Route path="transactions" element={<TransactionsPage />} />
+                    <Route path="analytics" element={<AnalyticsPage />} />
+                    <Route path="wallet" element={<WalletPage />} />
+                    {/* <Route path="personal" element={<PersonalPage />} /> */}
+                    <Route path="message" element={<MessagePage />} />
+                    <Route path="settings" element={<SettingsPage />} />
+                    <Route path="profile" element={<ProfilePage />} />
+                  </Route>
+                  <Route path="*" element={<Navigate to="/dashboard" replace />} />
+                </Routes>
+              </Router>
+            </ThemeProviderCustom>
           </AuthProvider>
         </AlertProvider>
       </LocalizationProvider>
