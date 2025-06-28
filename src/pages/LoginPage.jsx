@@ -118,7 +118,21 @@ const LoginPage = () => {
           </div>
         </Paper>
         <div className="mt-4 sm:mt-6 text-center absolute bottom-14 left-0 right-0">
-          <Typography variant="caption" className="text-gray-950 text-lg sm:text-sm">
+          <Typography
+            variant="h6"
+            sx={{
+              color: '#fff',
+              fontWeight: 700,
+              fontSize: { xs: '1.3rem', sm: '1.5rem', md: '2rem' },
+              bgcolor: 'rgba(0,0,0,0.7)',
+              borderRadius: 2,
+              px: 2,
+              py: 1,
+              display: 'inline-block',
+              boxShadow: 3,
+              letterSpacing: 0.5,
+            }}
+          >
             Demo credentials: analyst@loopr.com / password123
           </Typography>
         </div>

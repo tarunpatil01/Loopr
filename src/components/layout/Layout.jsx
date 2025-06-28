@@ -68,6 +68,14 @@ const Layout = ({ toggleTheme, mode }) => {
     }
   }, [isMobile]);
 
+  // Close drawer on route change (mobile only)
+  useEffect(() => {
+    if (isMobile) {
+      setDrawerOpen(false);
+    }
+    // eslint-disable-next-line
+  }, [location.pathname]);
+
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
