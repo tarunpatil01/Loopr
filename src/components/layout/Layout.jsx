@@ -273,12 +273,12 @@ const Layout = ({ toggleTheme, mode }) => {
             variant="h6"
             noWrap
             component="div"
-            ml={{ xs: 1, sm: 30 }}
+            ml={{ xs: 2, sm: 6, md: 10 }}
             sx={{
               flexGrow: 1,
               fontSize: { xs: 16, sm: 24 },
               color: '#fff',
-              textAlign: { xs: 'left', sm: 'center' },
+              textAlign: 'left',
               minWidth: 0,
               whiteSpace: 'nowrap',
               overflow: 'hidden',
@@ -288,10 +288,8 @@ const Layout = ({ toggleTheme, mode }) => {
             {location.pathname === '/dashboard' && 'Dashboard'}
             {location.pathname === '/transactions' && 'Transactions'}
             {location.pathname === '/profile' && 'Profile'}
-            {location.pathname === '/settings' && 'Settings'}
             {location.pathname === '/wallet' && 'Wallet'}
             {location.pathname === '/analytics' && 'Analytics'}
-            {location.pathname === '/personal' && 'Personal'}
             {location.pathname === '/message' && 'Message'}
           </Typography>
           {/* Responsive Search Bar */}

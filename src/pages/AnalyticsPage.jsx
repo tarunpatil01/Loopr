@@ -83,6 +83,20 @@ const AnalyticsPage = () => {
           </Paper>
         </Grid>
       </Grid>
+      <Paper sx={{ mt: 5, p: { xs: 2, sm: 4 }, background: '#181B2A', color: '#fff', borderRadius: 3, boxShadow: 2, maxWidth: 900, mx: 'auto', textAlign: 'center' }}>
+        <Typography variant="h6" sx={{ color: '#16F381', mb: 1 }}>
+          Insights
+        </Typography>
+        <Typography variant="body1" sx={{ mb: 1 }}>
+          - The majority of your transactions are in the <b>"{categoryData[0]?.name || 'N/A'}"</b> category.
+        </Typography>
+        <Typography variant="body1" sx={{ mb: 1 }}>
+          - Most transactions have a status of <b>"{statusData[0]?.name || 'N/A'}"</b>.
+        </Typography>
+        <Typography variant="body2" sx={{ color: '#A3AED0' }}>
+          More advanced analytics and trends coming soon!
+        </Typography>
+      </Paper>
     </Box>
   );
 };
