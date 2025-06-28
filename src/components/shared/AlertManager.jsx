@@ -1,5 +1,5 @@
 import { useEffect, forwardRef } from 'react';
-import { Snackbar, Alert as MuiAlert, IconButton, Box, useTheme } from '@mui/material';
+import { Snackbar, Alert as MuiAlert, IconButton, Box, useTheme, Chip, Stack } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import { useAlert } from '../../context/AlertContext';
 
@@ -29,36 +29,58 @@ const AlertManager = () => {
 
   return (
     <Box className="fixed top-4 right-4 z-[1200] w-full max-w-xs sm:max-w-sm">
-      {alerts.map((alert, index) => (
-        <Snackbar
-          key={alert.id}
-          open={true}
-          sx={{
-            ...alertStyle,
-            top: `${theme.spacing(2 + index * 8)}`,
-          }}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          className="mb-2"
-        >
-          <Alert
-            severity={alert.type}
-            action={
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={() => handleClose(alert.id)}
-                className="ml-2"
+      <Stack spacing={1} direction="column">
+        {alerts.map((alert, index) => (
+          alert.type === 'error' ? (
+            <Chip
+              key={alert.id}
+              label={alert.message}
+              color="error"
+              onDelete={() => handleClose(alert.id)}
+              sx={{
+                background: '#F44336',
+                color: '#fff',
+                fontWeight: 600,
+                fontSize: 15,
+                boxShadow: '0 2px 8px 0 #F4433622',
+                maxWidth: 360,
+                minHeight: 36,
+                justifyContent: 'flex-start',
+                pr: 1.5,
+              }}
+            />
+          ) : (
+            <Snackbar
+              key={alert.id}
+              open={true}
+              sx={{
+                ...alertStyle,
+                top: `${theme.spacing(2 + index * 8)}`,
+              }}
+              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+              className="mb-2"
+            >
+              <Alert
+                severity={alert.type}
+                action={
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={() => handleClose(alert.id)}
+                    className="ml-2"
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                }
+                className="text-xs md:text-sm"
               >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            }
-            className="text-xs md:text-sm"
-          >
-            {alert.message}
-          </Alert>
-        </Snackbar>
-      ))}
+                {alert.message}
+              </Alert>
+            </Snackbar>
+          )
+        ))}
+      </Stack>
     </Box>
   );
 };

@@ -12,17 +12,24 @@ import {
   Typography,
   Box,
   Divider,
-  CircularProgress
+  CircularProgress,
+  Chip
 } from '@mui/material';
 import { exportService } from '../../services/api';
 import { useAlert } from '../../context/AlertContext';
 import transactionsSample from '../../transactions.json'; // Use a sample of transactions for preview
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import SearchIcon from '@mui/icons-material/Search';
+import GetAppIcon from '@mui/icons-material/GetApp';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 const ExportModal = ({ open, onClose, filters, onExportSuccess }) => {
   const [columns, setColumns] = useState([]);
   const [availableColumns, setAvailableColumns] = useState([]);
   const [filename, setFilename] = useState('transactions_export');
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState('');
+  const [exportFormat, setExportFormat] = useState('csv');
   const { showError } = useAlert();
 
   // Fetch available columns when modal opens
@@ -98,6 +105,14 @@ const ExportModal = ({ open, onClose, filters, onExportSuccess }) => {
     }
   };
 
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+    const reordered = Array.from(columns);
+    const [removed] = reordered.splice(result.source.index, 1);
+    reordered.splice(result.destination.index, 0, removed);
+    setColumns(reordered);
+  };
+
   // Preset column sets
   const presets = [
     { name: 'Minimal', columns: ['id', 'date', 'amount'] },
@@ -129,6 +144,8 @@ const ExportModal = ({ open, onClose, filters, onExportSuccess }) => {
     return summary.length ? summary.join(' | ') : 'No filters applied';
   }, [filters]);
 
+  const filteredColumns = availableColumns.filter(col => col.label.toLowerCase().includes(search.toLowerCase()));
+
   return (
     <Dialog 
       open={open} 
@@ -157,8 +174,67 @@ const ExportModal = ({ open, onClose, filters, onExportSuccess }) => {
         ) : (
           <>
             <Typography variant="body1" gutterBottom sx={{ fontSize: { xs: 14, sm: 16 } }} className="mb-2">
-              Select columns to include in your export
+              Select and order columns to include in your export
             </Typography>
+            {/* Export format */}
+            <Box sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Typography variant="caption" sx={{ color: '#A3AED0', fontWeight: 600 }}>Format:</Typography>
+              <Button
+                variant={exportFormat === 'csv' ? 'contained' : 'outlined'}
+                startIcon={<DescriptionIcon />}
+                onClick={() => setExportFormat('csv')}
+                sx={{ background: exportFormat === 'csv' ? '#16F381' : 'transparent', color: exportFormat === 'csv' ? '#181A20' : '#16F381', borderColor: '#16F381', '&:hover': { background: 'rgba(22,243,129,0.08)' } }}
+              >
+                CSV
+              </Button>
+              <Button
+                variant={exportFormat === 'xlsx' ? 'contained' : 'outlined'}
+                startIcon={<GetAppIcon />}
+                onClick={() => setExportFormat('xlsx')}
+                sx={{ background: exportFormat === 'xlsx' ? '#16F381' : 'transparent', color: exportFormat === 'xlsx' ? '#181A20' : '#16F381', borderColor: '#16F381', '&:hover': { background: 'rgba(22,243,129,0.08)' } }}
+              >
+                Excel
+              </Button>
+            </Box>
+            {/* Search columns */}
+            <Box sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+              <SearchIcon sx={{ color: '#A3AED0' }} />
+              <TextField
+                placeholder="Search columns..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                size="small"
+                sx={{ input: { color: '#fff' }, width: 200 }}
+              />
+            </Box>
+            {/* Drag and drop columns */}
+            <DragDropContext onDragEnd={handleDragEnd}>
+              <Droppable droppableId="columns-droppable" direction="horizontal">
+                {(provided) => (
+                  <Box ref={provided.innerRef} {...provided.droppableProps} sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
+                    {columns.map((colId, idx) => {
+                      const col = availableColumns.find(c => c.id === colId);
+                      if (!col || !filteredColumns.some(fc => fc.id === colId)) return null;
+                      return (
+                        <Draggable key={colId} draggableId={colId} index={idx}>
+                          {(providedDraggable) => (
+                            <Chip
+                              ref={providedDraggable.innerRef}
+                              {...providedDraggable.draggableProps}
+                              {...providedDraggable.dragHandleProps}
+                              label={col.label}
+                              onDelete={() => setColumns(columns.filter(c => c !== colId))}
+                              sx={{ background: '#181C23', color: '#16F381', fontWeight: 700, mb: 1 }}
+                            />
+                          )}
+                        </Draggable>
+                      );
+                    })}
+                    {provided.placeholder}
+                  </Box>
+                )}
+              </Droppable>
+            </DragDropContext>
             {/* Presets */}
             <Box sx={{ mb: 2 }}>
               <Typography variant="caption" sx={{ color: '#A3AED0', fontWeight: 600 }}>Quick Presets:</Typography>
@@ -273,8 +349,9 @@ const ExportModal = ({ open, onClose, filters, onExportSuccess }) => {
           size={window.innerWidth < 600 ? 'small' : 'medium'}
           className="bg-blue-600 hover:bg-blue-700 text-white"
           sx={{ background: '#16F381', color: '#181A20', fontWeight: 700, '&:hover': { background: '#13c06b' } }}
+          startIcon={exportFormat === 'csv' ? <DescriptionIcon /> : <GetAppIcon />}
         >
-          {loading ? 'Exporting...' : 'Export CSV'}
+          {loading ? (exportFormat === 'csv' ? 'Exporting CSV...' : 'Exporting Excel...') : (exportFormat === 'csv' ? 'Export CSV' : 'Export Excel')}
         </Button>
       </DialogActions>
     </Dialog>

@@ -11,6 +11,7 @@ import {
 } from 'recharts';
 import { Box, Typography, ToggleButtonGroup, ToggleButton, CircularProgress } from '@mui/material';
 import { transactionService } from '../../services/api';
+import { useAlert } from '../../context/AlertContext';
 
 const demoData = [
   { name: 'Jan', income: 320, expenses: 220 },
@@ -56,6 +57,7 @@ const RevenueExpenseChart = () => {
   const [chartType, setChartType] = useState('line');
   const [chartData, setChartData] = useState(demoData);
   const [loading, setLoading] = useState(true);
+  const { showError } = useAlert();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,6 +92,7 @@ const RevenueExpenseChart = () => {
         }
       } catch (e) {
         setChartData(demoData);
+        showError('Failed to load chart data. Please try again later.');
       } finally {
         setLoading(false);
       }
