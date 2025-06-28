@@ -108,9 +108,9 @@ const RevenueExpenseChart = () => {
         borderRadius: 3,
         p: { xs: 1, sm: 2 },
         boxShadow: 3,
-        width: '90%',
+        width: '100%',
         minWidth: { xs: '0', sm: 320 },
-        maxWidth: { xs: '100%', sm: 700 },
+        maxWidth: { xs: '100%', sm: 650 },
         mx: { xs: 0, sm: 1 },
         overflowX: 'auto',
       }}
