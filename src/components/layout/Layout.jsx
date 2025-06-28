@@ -277,6 +277,14 @@ const Layout = ({ toggleTheme, mode }) => {
           <Button
             color="inherit"
             onClick={handleProfileMenuOpen}
+            startIcon={
+              <Avatar
+                sx={{ width: 28, height: 28, bgcolor: '#16F381', color: '#181C23', fontWeight: 700, fontSize: { xs: 14, sm: 18 } }}
+                alt={user?.firstName || 'User'}
+              >
+                {(user?.firstName?.[0] || 'U').toUpperCase()}
+              </Avatar>
+            }
             sx={{ fontSize: { xs: 12, sm: 16 }, color: '#fff', textTransform: 'none', fontWeight: 700, minWidth: 0, px: { xs: 1, sm: 2 } }}
           >
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>{user?.firstName || 'User'}</Box>
