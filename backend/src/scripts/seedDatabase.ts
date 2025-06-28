@@ -5,13 +5,6 @@ import path from 'path';
 import User from '../models/User';
 import Transaction from '../models/Transaction';
 
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
-import fs from 'fs';
-import path from 'path';
-import Transaction from '../models/Transaction';
-import User from '../models/User';
-
 // Load environment variables
 dotenv.config();
 
