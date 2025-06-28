@@ -200,7 +200,14 @@ const Layout = ({ toggleTheme, mode }) => {
   );
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', flexDirection: { xs: 'column', md: 'row' }, background: '#282c35' }}>
+    <Box sx={{
+      display: 'flex',
+      minHeight: '100vh',
+      flexDirection: { xs: 'column', md: 'row' },
+      background: '#282c35',
+      width: '100vw',
+      overflowX: 'hidden',
+    }}>
       {/* Side Drawer - now above AppBar */}
       <Drawer
         variant={isMobile ? 'temporary' : 'persistent'}
@@ -216,24 +223,39 @@ const Layout = ({ toggleTheme, mode }) => {
           }
         }}
         sx={{
-          width: drawerWidth,
+          width: { xs: '80vw', sm: drawerWidth },
           flexShrink: 0,
           '& .MuiDrawer-paper': {
-            width: drawerWidth,
+            width: { xs: '80vw', sm: drawerWidth },
             boxSizing: 'border-box',
             transition: 'transform 0.3s cubic-bezier(0.4,0,0.2,1)',
-            background: '#1a1c22', // Card color
+            background: '#1a1c22',
             borderRight: '1px solid #232733',
             boxShadow: isMobile && drawerOpen ? '0 0 24px 0 #16F38144' : 'none',
             zIndex: theme.zIndex.drawer + 2,
+            minWidth: 0,
           },
         }}
       >
         {drawer}
       </Drawer>
       {/* App Bar */}
-      <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1, background: '#1a1c22', boxShadow: 'none', borderBottom: '1px solid #232733', ml: { md: `${drawerWidth}px` }, width: { xs: '100vw', md: `calc(100vw - ${drawerWidth}px)` } }}>
-        <Toolbar sx={{ minHeight: { xs: 56, sm: 64 }, background: '#1a1c22', px: { xs: 1, sm: 3 } }}>
+      <AppBar position="fixed" sx={{
+        zIndex: theme.zIndex.drawer + 1,
+        background: '#1a1c22',
+        boxShadow: 'none',
+        borderBottom: '1px solid #232733',
+        ml: { md: `${drawerWidth}px` },
+        width: { xs: '100vw', md: `calc(100vw - ${drawerWidth}px)` },
+        left: 0,
+      }}>
+        <Toolbar sx={{
+          minHeight: { xs: 56, sm: 64 },
+          background: '#1a1c22',
+          px: { xs: 1, sm: 3 },
+          flexWrap: { xs: 'wrap', sm: 'nowrap' },
+          gap: { xs: 1, sm: 0 },
+        }}>
           <IconButton
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' }, color: '#16F381' }}
@@ -241,7 +263,22 @@ const Layout = ({ toggleTheme, mode }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" ml={{ xs: 2, sm: 30 }} sx={{ flexGrow: 1, fontSize: { xs: 16, sm: 24 }, color: '#fff', textAlign: { xs: 'left', sm: 'center' } }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            ml={{ xs: 1, sm: 30 }}
+            sx={{
+              flexGrow: 1,
+              fontSize: { xs: 16, sm: 24 },
+              color: '#fff',
+              textAlign: { xs: 'left', sm: 'center' },
+              minWidth: 0,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
             {location.pathname === '/dashboard' && 'Dashboard'}
             {location.pathname === '/transactions' && 'Transactions'}
             {location.pathname === '/profile' && 'Profile'}
@@ -251,7 +288,22 @@ const Layout = ({ toggleTheme, mode }) => {
             {location.pathname === '/personal' && 'Personal'}
             {location.pathname === '/message' && 'Message'}
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', background: '#282c35', borderRadius: 2, px: 2, py: 0.5, mr: 2, border: '1.5px solid #16F381', minWidth: 160, maxWidth: 240, width: '100%' }}>
+          {/* Responsive Search Bar */}
+          <Box
+            sx={{
+              display: { xs: 'none', sm: 'flex' },
+              alignItems: 'center',
+              background: '#282c35',
+              borderRadius: 2,
+              px: 2,
+              py: 0.5,
+              mr: 2,
+              border: '1.5px solid #16F381',
+              minWidth: 120,
+              maxWidth: 240,
+              width: '100%',
+            }}
+          >
             <input
               type="text"
               placeholder="Search..."
@@ -269,7 +321,14 @@ const Layout = ({ toggleTheme, mode }) => {
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24"><path stroke="#16F381" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg>
             </span>
           </Box>
-          <IconButton color="inherit" sx={{ mr: 2 }} onClick={handleNotifClick} aria-label="show notifications">
+          {/* Mobile search icon */}
+          <Box sx={{ display: { xs: 'flex', sm: 'none' }, alignItems: 'center', mr: 1 }}>
+            <IconButton size="small" sx={{ color: '#16F381' }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24"><path stroke="#16F381" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg>
+            </IconButton>
+          </Box>
+          {/* Notification and Profile */}
+          <IconButton color="inherit" sx={{ mr: { xs: 1, sm: 2 } }} onClick={handleNotifClick} aria-label="show notifications">
             <Badge badgeContent={unreadCount} color="error">
               <NotificationsIcon sx={{ color: '#16F381', fontSize: { xs: 22, sm: 28 }, cursor: 'pointer' }} />
             </Badge>
@@ -280,7 +339,7 @@ const Layout = ({ toggleTheme, mode }) => {
             onClose={handleNotifClose}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            PaperProps={{ sx: { minWidth: 260, p: 2, background: '#1A1C22', color: '#fff' } }}
+            PaperProps={{ sx: { minWidth: 220, maxWidth: 320, p: 2, background: '#1A1C22', color: '#fff' } }}
           >
             <Typography variant="subtitle1" sx={{ mb: 1 }}>Notifications</Typography>
             {notifications.length === 0 ? (
