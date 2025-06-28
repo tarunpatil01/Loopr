@@ -29,7 +29,7 @@ npm install
 ### 4. Seed the Database (Optional)
 ```bash
 # From backend/
-npm run seed
+npm run dev
 ```
 
 ### 5. Start the Development Servers
@@ -38,8 +38,15 @@ npm run seed
 npm run dev
 ```
 
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:5000/api
+- Frontend: https://loopr-tarunp.vercel.app/
+- Backend API: https://loopr-backend.onrender.com/api
+
+---
+
+## 🧑‍💻 Demo Credentials
+
+- Email: `analyst@loopr.com`
+- Password: `password123`
 
 ---
 
@@ -48,16 +55,17 @@ npm run dev
 To test with a different backend (e.g., via Postman or a deployed API):
 - Open `src/services/api.js` and change the `API_BASE_URL` at the top of the file:
   ```js
-  const API_BASE_URL = 'http://localhost:5000/api'; // Change this to your backend URL
+  const API_BASE_URL = 'https://loopr-backend.onrender.com/api'; // Change this to your backend URL
   ```
 - Save and restart the frontend server.
 
 ---
 
-## 🛠️ Usage Examples
+## 🛠️ Usage Overview
 
 ### Login/Register
 - Visit `/login` or `/register` to create an account and log in.
+- Use the demo credentials above for instant access.
 
 ### Dashboard
 - View analytics, charts, recent transactions, and breakdowns.
@@ -67,20 +75,69 @@ To test with a different backend (e.g., via Postman or a deployed API):
 
 ### Analytics
 - See category and status breakdowns as charts.
+- Insights section highlights your top categories and statuses.
+
+### Wallet
+- View your balance, expenses, and savings at a glance.
+
+### Messages
+- All notifications and messages will appear here.
 
 ---
 
 ## 📚 API Documentation
 
 ### Authentication
-- `POST /api/auth/login` — Login with email and password
-- `POST /api/auth/register` — Register a new user
+- `POST /api/auth/login` — Login with email and password  
+  **Body:**  
+  ```json
+  {
+    "email": "your@email.com",
+    "password": "yourpassword"
+  }
+  ```
+- `POST /api/auth/register` — Register a new user  
+  **Body (all fields required):**  
+  ```json
+  {
+    "username": "yourusername",
+    "email": "your@email.com",
+    "firstName": "YourFirstName",
+    "lastName": "YourLastName",
+    "password": "yourpassword",
+    "role": "user",
+    "isActive": true
+  }
+  ```
+### Users
+- `GET /api/users/profile` — Get current user profile (requires auth)
+- `PUT /api/users/profile` — Update current user profile
+- `PUT /api/users/change-password` — Change current user password (**requires Authorization header**)
+
+  **Body:**  
+  ```json
+  {
+    "currentPassword": "yourOldPassword",
+    "newPassword": "yourNewPassword"
+  }
+  ```
+
+  **Success Response:**  
+  ```json
+  {
+    "success": true,
+    "message": "Password changed successfully"
+  }
+  ```
+
+  > **Note:**  
+  > You must send your JWT token in the `Authorization` header as `Bearer <token>`.
 
 ### Transactions
 - `GET /api/transactions` — List transactions (supports filters, pagination)
+- `POST /api/transactions` — Create a new transaction
 - `GET /api/transactions/analytics` — Get analytics (summary, breakdowns)
 - `GET /api/transactions/filters` — Get filter options
-- `POST /api/transactions` — Create a new transaction
 
 ### Export
 - `POST /api/export/csv` — Export filtered transactions as CSV
@@ -99,11 +156,9 @@ id,date,amount,category,status,user_id,user_profile
 
 ## 🧑‍💻 API URL for Postman
 
-To test endpoints with Postman, set the base URL to your backend (e.g. `http://localhost:5000/api` or your deployed API).
+To test endpoints with Postman, set the base URL to your backend (e.g. `https://loopr-backend.onrender.com/api` or your deployed API).
 
 You can change the backend URL in `src/services/api.js` as described above for local testing.
 
 ---
 
-## 📄 License
-MIT
