@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 5000;
 
 // CORS configuration (move to the very top)
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://loopr-tarunp.vercel.app/',
+  origin: process.env.FRONTEND_URL || 'https://loopr-tarunp.vercel.app',
   credentials: true,
 }));
 
