@@ -132,7 +132,7 @@ const Layout = ({ toggleTheme, mode }) => {
   const drawer = (
     <div style={{ background: '#1A1C22', height: '100%' }}>
       <Toolbar sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', py: 2 }}>
-        <img src="/src/assets/penta-logo.svg" alt="Penta Logo" style={{ height: 30, marginRight: 10 }} />
+        <img src="/penta-logo.svg" alt="Penta Logo" style={{ height: 30, marginRight: 10 }} />
         <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold', color: '#fff', fontSize: 26 }}>
           Penta
         </Typography>
