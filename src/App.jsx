@@ -12,7 +12,7 @@ import DashboardPage from './pages/DashboardPage';
 import TransactionsPage from './pages/TransactionsPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import WalletPage from './pages/WalletPage';
-import PersonalPage from './pages/PersonalPage';
+// import PersonalPage from './pages/PersonalPage';
 import MessagePage from './pages/MessagePage';
 import SettingsPage from './pages/SettingsPage';
 import ProfilePage from './pages/ProfilePage';
@@ -122,7 +122,7 @@ function App() {
                   <Route path="transactions" element={<TransactionsPage />} />
                   <Route path="analytics" element={<AnalyticsPage />} />
                   <Route path="wallet" element={<WalletPage />} />
-                  <Route path="personal" element={<PersonalPage />} />
+                  {/* <Route path="personal" element={<PersonalPage />} /> */}
                   <Route path="message" element={<MessagePage />} />
                   <Route path="settings" element={<SettingsPage />} />
                   <Route path="profile" element={<ProfilePage />} />
