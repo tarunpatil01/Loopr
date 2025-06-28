@@ -159,25 +159,30 @@ const TransactionTable = ({
     );
   }
 
+  // Responsive font size helper
+  const getFontSize = (base, sm) => ({ xs: base, sm });
+
   return (
-    <Box sx={{ width: '100%' }} className="w-full">
+    <Box sx={{ width: '100%', overflowX: 'auto', px: { xs: 0, sm: 0 } }} className="w-full">
       <TableContainer
         className="rounded-lg shadow"
         sx={{
-          background: '#1a1c22', // Changed from #232733
+          background: '#1a1c22',
           color: '#fff',
           borderRadius: 3,
           boxShadow: 3,
+          minWidth: { xs: 500, sm: 0 },
         }}
       >
-        <Table stickyHeader aria-label="transaction table" size={window.innerWidth < 600 ? 'small' : 'medium'} className="text-xs md:text-sm">
+        <Table stickyHeader aria-label="transaction table" size="small" className="text-xs md:text-sm">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth, fontSize: window.innerWidth < 600 ? 12 : 14, color: '#16F381', background: '#1a1c22', borderBottom: '1px solid #2D3142' }}
+                  style={{ minWidth: column.minWidth, color: '#16F381', background: '#1a1c22', borderBottom: '1px solid #2D3142' }}
+                  sx={{ fontSize: getFontSize(12, 14), fontWeight: 600 }}
                   sortDirection={sortBy === column.id ? sortOrder : false}
                   className="font-semibold"
                 >
@@ -186,9 +191,7 @@ const TransactionTable = ({
                       active={sortBy === column.id}
                       direction={sortBy === column.id ? sortOrder : 'desc'}
                       onClick={() => handleSort(column.id)}
-                      sx={{ color: '#16F381',
-                        '& .MuiTableSortLabel-icon': { color: '#16F381 !important' },
-                      }}
+                      sx={{ color: '#16F381', '& .MuiTableSortLabel-icon': { color: '#16F381 !important' } }}
                     >
                       {column.label}
                       {sortBy === column.id ? (
@@ -206,11 +209,11 @@ const TransactionTable = ({
           </TableHead>
           <TableBody>
             {transactions.map((transaction, idx) => (
-              <TableRow hover role="checkbox" tabIndex={-1} key={transaction.id} sx={{ fontSize: window.innerWidth < 600 ? 12 : 14, background: idx % 2 === 0 ? '#1a1c22' : '#232733' }} className="hover:bg-gray-50">
+              <TableRow hover role="checkbox" tabIndex={-1} key={transaction.id} sx={{ fontSize: getFontSize(12, 14), background: idx % 2 === 0 ? '#1a1c22' : '#232733' }} className="hover:bg-gray-50">
                 {columns.map((column) => {
                   const value = transaction[column.id];
                   return (
-                    <TableCell key={column.id} align={column.align} sx={{ fontSize: window.innerWidth < 600 ? 12 : 14, color: '#fff', borderBottom: '1px solid #2D3142', background: '#1a1c22' }} className="py-2 px-3">
+                    <TableCell key={column.id} align={column.align} sx={{ fontSize: getFontSize(12, 14), color: '#fff', borderBottom: '1px solid #2D3142', background: '#1a1c22', py: { xs: 1, sm: 2 }, px: { xs: 1, sm: 3 } }} className="py-2 px-3">
                       {column.id === 'date' ? (
                         <span style={{ color: '#A3AED0' }}>{formatDate(value)}</span>
                       ) : column.id === 'amount' ? (
@@ -240,14 +243,14 @@ const TransactionTable = ({
       </TableContainer>
       {isPaginated && pagination && (
         <TablePagination
-          rowsPerPageOptions={window.innerWidth < 600 ? [5, 10] : [5, 10, 25, 50]}
+          rowsPerPageOptions={[5, 10, 25, 50]}
           component="div"
           count={pagination.count || 0}
           rowsPerPage={pagination.rowsPerPage || 10}
           page={pagination.page || 0}
           onPageChange={pagination.onPageChange}
           onRowsPerPageChange={pagination.onRowsPerPageChange}
-          sx={{ background: '#1a1c22', color: '#fff', borderTop: '1px solid #2D3142' }}
+          sx={{ background: '#1a1c22', color: '#fff', borderTop: '1px solid #2D3142', '.MuiTablePagination-toolbar': { flexDirection: { xs: 'column', sm: 'row' }, alignItems: { xs: 'flex-start', sm: 'center' }, gap: { xs: 1, sm: 0 } } }}
         />
       )}
     </Box>

@@ -102,12 +102,33 @@ const RevenueExpenseChart = () => {
   };
 
   return (
-    <Box sx={{ background: '#1a1c22', borderRadius: 3, p: 2, boxShadow: 3, width: '100%', minWidth: 600, maxWidth: 700, mx: '1' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+    <Box
+      sx={{
+        background: '#1a1c22',
+        borderRadius: 3,
+        p: { xs: 1, sm: 2 },
+        boxShadow: 3,
+        width: '100%',
+        minWidth: { xs: '0', sm: 320 },
+        maxWidth: { xs: '100%', sm: 700 },
+        mx: { xs: 0, sm: 1 },
+        overflowX: 'auto',
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          justifyContent: 'space-between',
+          alignItems: { xs: 'flex-start', sm: 'center' },
+          mb: 1,
+          gap: { xs: 1, sm: 0 },
+        }}
+      >
         <Typography variant="h6" sx={{ color: '#fff', fontWeight: 700 }}>
           Overview
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: { xs: 1, sm: 0 } }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <Box sx={{ width: 12, height: 12, borderRadius: '50%', background: COLORS.income, mr: 1 }} />
             <Typography variant="body2" sx={{ color: '#fff' }}>Income</Typography>
@@ -123,9 +144,9 @@ const RevenueExpenseChart = () => {
           </Box>
         </Box>
       </Box>
-      <Box sx={{ height: 350, width: 550 }}>
+      <Box sx={{ height: { xs: 250, sm: 350 }, width: '100%', minWidth: 0 }}>
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: { xs: 250, sm: 350 } }}>
             <CircularProgress />
           </Box>
         ) : (
