@@ -269,11 +269,35 @@ const Layout = ({ toggleTheme, mode }) => {
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24"><path stroke="#16F381" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg>
             </span>
           </Box>
-          <IconButton color="inherit" sx={{ mr: 2 }} onClick={handleNotifClick}>
+          <IconButton color="inherit" sx={{ mr: 2 }} onClick={handleNotifClick} aria-label="show notifications">
             <Badge badgeContent={unreadCount} color="error">
-              <NotificationsIcon sx={{ color: '#16F381', fontSize: { xs: 22, sm: 28 } }} />
+              <NotificationsIcon sx={{ color: '#16F381', fontSize: { xs: 22, sm: 28 }, cursor: 'pointer' }} />
             </Badge>
           </IconButton>
+          <Popover
+            open={openNotif}
+            anchorEl={notifAnchorEl}
+            onClose={handleNotifClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            PaperProps={{ sx: { minWidth: 260, p: 2, background: '#1A1C22', color: '#fff' } }}
+          >
+            <Typography variant="subtitle1" sx={{ mb: 1 }}>Notifications</Typography>
+            {notifications.length === 0 ? (
+              <Typography variant="body2">No notifications</Typography>
+            ) : (
+              <>
+                {notifications.map((n) => (
+                  <Box key={n.id} sx={{ mb: 1, fontWeight: n.read ? 400 : 700, color: n.read ? '#aaa' : '#16F381' }}>
+                    {n.message}
+                  </Box>
+                ))}
+                <Button size="small" color="success" onClick={handleMarkAllRead} sx={{ mt: 1 }}>
+                  Mark all as read
+                </Button>
+              </>
+            )}
+          </Popover>
           <Button
             color="inherit"
             onClick={handleProfileMenuOpen}
