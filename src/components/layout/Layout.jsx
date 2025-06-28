@@ -133,6 +133,7 @@ const Layout = ({ toggleTheme, mode }) => {
             to={item.path}
             selected={location.pathname === item.path}
             sx={{
+              position: 'relative',
               backgroundColor: location.pathname === item.path ? 'rgba(22,243,129,0.08)' : 'transparent',
               '&:hover': {
                 backgroundColor: 'rgba(22,243,129,0.04)',
@@ -146,6 +147,22 @@ const Layout = ({ toggleTheme, mode }) => {
           >
             <ListItemIcon sx={{ color: '#16F381', minWidth: { xs: 32, sm: 40 } }}>{item.icon}</ListItemIcon>
             <ListItemText primary={item.text} sx={{ display: 'block' }} />
+            {location.pathname === item.path && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  right: 0,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  height: { xs: 24, sm: 32 },
+                  width: 6,
+                  borderRadius: '6px 0 0 6px',
+                  background: '#FFA726', // Orange
+                  boxShadow: '0 0 8px 2px #FFA72655',
+                  transition: 'background 0.2s',
+                }}
+              />
+            )}
           </ListItem>
         ))}
       </List>
