@@ -117,8 +117,8 @@ const LoginPage = () => {
             </Box>
           </div>
         </Paper>
-        <div className="mt-4 sm:mt-6 text-center absolute bottom-4 left-0 right-0">
-          <Typography variant="caption" className="text-gray-500 text-xs sm:text-sm">
+        <div className="mt-4 sm:mt-6 text-center absolute bottom-14 left-0 right-0">
+          <Typography variant="caption" className="text-gray-950 text-lg sm:text-sm">
             Demo credentials: analyst@loopr.com / password123
           </Typography>
         </div>
