@@ -139,7 +139,7 @@ const Layout = ({ toggleTheme, mode }) => {
             }}
           >
             <ListItemIcon sx={{ color: '#16F381', minWidth: { xs: 32, sm: 40 } }}>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} sx={{ display: { xs: 'none', sm: 'block' } }} />
+            <ListItemText primary={item.text} sx={{ display: 'block' }} />
           </ListItem>
         ))}
       </List>
