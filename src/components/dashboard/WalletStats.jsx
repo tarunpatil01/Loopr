@@ -42,34 +42,45 @@ const WalletStats = () => {
   ];
 
   return (
-    <Stack direction="row" spacing={2} sx={{ mb: 3, justifyContent: 'center' }}>
+    <Stack
+      direction={{ xs: 'column', sm: 'row' }}
+      spacing={{ xs: 2, sm: 2, md: 3 }}
+      sx={{ mb: 3, justifyContent: 'center', alignItems: 'center', width: '100%' }}
+    >
       {stats.map((stat) => {
         const card = (
-          <Paper key={stat.label} elevation={3} sx={{
-            minWidth: 140,
-            px: 7,
-            py: 2,
-            borderRadius: 3,
-            background: '#1A1C22',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            boxShadow: '0 2px 12px 0 rgba(22,243,129,0.08)',
-          }}>
-            <Avatar sx={{ bgcolor: '#181B2A', width: 48, height: 48, mb: 1, boxShadow: '0 2px 8px #16F38133' }}>
+          <Paper
+            key={stat.label}
+            elevation={3}
+            sx={{
+              minWidth: { xs: '90vw', sm: 140 },
+              maxWidth: { xs: '95vw', sm: 220 },
+              width: { xs: '100%', sm: 'auto' },
+              px: { xs: 3, sm: 5, md: 7 },
+              py: { xs: 2, sm: 2 },
+              mb: { xs: 1, sm: 0 },
+              borderRadius: 3,
+              background: '#1A1C22',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              boxShadow: '0 2px 12px 0 rgba(22,243,129,0.08)',
+            }}
+          >
+            <Avatar sx={{ bgcolor: '#181B2A', width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 }, mb: 1, boxShadow: '0 2px 8px #16F38133' }}>
               {stat.icon}
             </Avatar>
-            <Typography variant="h5" sx={{ color: '#fff', fontWeight: 500 }}>
+            <Typography variant="h6" sx={{ color: '#fff', fontWeight: 500, fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
               {stat.label}
             </Typography>
-            <Typography variant="h5" sx={{ fontWeight: 500 }}>
+            <Typography variant="h6" sx={{ fontWeight: 500, fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
               {stat.display}
             </Typography>
           </Paper>
         );
         return (
           <Tooltip key={stat.label} title={stat.tooltip || ''} arrow placement="top">
-            <span>{card}</span>
+            {card}
           </Tooltip>
         );
       })}

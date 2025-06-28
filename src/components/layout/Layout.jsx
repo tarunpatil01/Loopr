@@ -112,9 +112,7 @@ const Layout = ({ toggleTheme, mode }) => {
     { text: 'Transactions', icon: <ReceiptIcon />, path: '/transactions' },
     { text: 'Wallet', icon: <WalletIcon />, path: '/wallet' },
     { text: 'Analytics', icon: <AnalyticsIcon />, path: '/analytics' },
-    { text: 'Personal', icon: <PersonIcon />, path: '/personal' },
     { text: 'Message', icon: <MessageIcon />, path: '/message' },
-    { text: 'Setting', icon: <SettingsIcon />, path: '/settings' },
   ];
 
   // Drawer content
