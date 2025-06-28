@@ -122,7 +122,7 @@ const LoginPage = () => {
             variant="h6"
             sx={{
               color: '#fff',
-              fontWeight: 700,
+              fontWeight: 600,
               fontSize: { xs: '1.3rem', sm: '1.5rem', md: '2rem' },
               bgcolor: 'rgba(0,0,0,0.7)',
               borderRadius: 2,
