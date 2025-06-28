@@ -218,7 +218,7 @@ const ExportModal = ({ open, onClose, filters, onExportSuccess }) => {
                       size={window.innerWidth < 600 ? 'small' : 'medium'}
                     />
                   }
-                  label={<span className="text-xs md:text-sm">{column.title}</span>}
+                  label={<span className="text-xs md:text-sm">{column.label}</span>}
                   className="mb-1"
                   sx={{ minWidth: 160 }}
                 />
