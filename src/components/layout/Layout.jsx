@@ -57,25 +57,6 @@ const Layout = ({ toggleTheme, mode }) => {
     { id: 1, message: 'Welcome to Loopr!', read: false },
     { id: 2, message: 'Your profile was updated.', read: false },
   ]);
-  const [avatar, setAvatar] = useState(null);
-  useEffect(() => {
-    const fetchAvatar = async () => {
-      try {
-        const blob = await userService.getAvatar();
-        if (blob) {
-          setAvatar(URL.createObjectURL(blob));
-        }
-      } catch {}
-    };
-    fetchAvatar();
-  }, []);
-  const handleAvatarChange = async (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      await userService.uploadAvatar(file);
-      setAvatar(URL.createObjectURL(file));
-    }
-  };
   const unreadCount = notifications.filter(n => !n.read).length;
   
   // Close the drawer by default on mobile devices
@@ -296,24 +277,6 @@ const Layout = ({ toggleTheme, mode }) => {
           <Button
             color="inherit"
             onClick={handleProfileMenuOpen}
-            startIcon={
-              <label htmlFor="avatar-upload" style={{ margin: 0 }}>
-                <input
-                  accept="image/*"
-                  id="avatar-upload"
-                  type="file"
-                  style={{ display: 'none' }}
-                  onChange={handleAvatarChange}
-                />
-                <Avatar
-                  alt={user?.firstName || 'User'}
-                  src={avatar}
-                  sx={{ width: 28, height: 28, bgcolor: '#16F381', color: '#181C23', fontWeight: 700, cursor: 'pointer', fontSize: { xs: 14, sm: 18 } }}
-                >
-                  {user?.firstName?.[0] || 'U'}
-                </Avatar>
-              </label>
-            }
             sx={{ fontSize: { xs: 12, sm: 16 }, color: '#fff', textTransform: 'none', fontWeight: 700, minWidth: 0, px: { xs: 1, sm: 2 } }}
           >
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>{user?.firstName || 'User'}</Box>

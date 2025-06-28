@@ -42,7 +42,7 @@ function App() {
           mode,
           background: {
             default: mode === 'dark' ? '#181C23' : '#f4f6fa',
-            paper: mode === 'dark' ? '#232733' : '#fff',
+            paper: mode === 'dark' ? '#282c35' : '#fff',
           },
           primary: {
             main: '#16F381',
