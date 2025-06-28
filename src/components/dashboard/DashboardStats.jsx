@@ -52,7 +52,18 @@ const DashboardStats = () => {
   ];
 
   return (
-    <Box sx={{ display: 'flex', gap: 2.5, justifyContent: 'center', alignItems: 'center', mt: 1.5, mb: 1.5 }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: { xs: 2, sm: 2.5 },
+        justifyContent: { xs: 'center', sm: 'center' },
+        alignItems: 'center',
+        mt: 1.5,
+        mb: 1.5,
+        width: '100%',
+      }}
+    >
       {stats.map((stat, idx) => (
         <Paper
           key={stat.label}
@@ -60,10 +71,11 @@ const DashboardStats = () => {
           sx={{
             background: '#1a1c22',
             borderRadius: 2.5,
-            minWidth: 220,
-            maxWidth: 250,
-            px: 2.5,
-            py: 2,
+            minWidth: { xs: 140, sm: 180, md: 220 },
+            maxWidth: { xs: '90vw', sm: 250 },
+            width: { xs: '100%', sm: 'auto' },
+            px: { xs: 1.5, sm: 2.5 },
+            py: { xs: 1.2, sm: 2 },
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
@@ -83,24 +95,24 @@ const DashboardStats = () => {
           <Box sx={{
             background: '#282c35',
             borderRadius: 2,
-            width: 56,
-            height: 40,
+            width: { xs: 40, sm: 56 },
+            height: { xs: 32, sm: 40 },
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            mr: 1.5,
+            mr: { xs: 1, sm: 1.5 },
             transition: 'background 0.2s',
             '&:hover': {
               background: '#16F38122',
             },
           }}>
-            {React.cloneElement(stat.icon, { sx: { color: '#16F381', fontSize: 24 } })}
+            {React.cloneElement(stat.icon, { sx: { color: '#16F381', fontSize: { xs: 20, sm: 24 } } })}
           </Box>
           <Box>
-            <Typography variant="subtitle2" sx={{ color: '#fff', opacity: 0.8, fontWeight: 400, fontSize: 15 }}>
+            <Typography variant="subtitle2" sx={{ color: '#fff', opacity: 0.8, fontWeight: 400, fontSize: { xs: 13, sm: 15 } }}>
               {stat.label}
             </Typography>
-            <Typography variant="h6" sx={{ color: '#fff', fontWeight: 500, fontSize: 22, mt: 0.2 }}>
+            <Typography variant="h6" sx={{ color: '#fff', fontWeight: 500, fontSize: { xs: 16, sm: 22 }, mt: 0.2 }}>
               ${stat.value.toLocaleString()}
             </Typography>
           </Box>
