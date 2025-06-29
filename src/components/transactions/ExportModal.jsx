@@ -18,7 +18,7 @@ import {
 import { exportService } from '../../services/api';
 import { useAlert } from '../../context/AlertContext';
 import transactionsSample from '../../transactions.json'; // Use a sample of transactions for preview
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import SearchIcon from '@mui/icons-material/Search';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import DescriptionIcon from '@mui/icons-material/Description';
