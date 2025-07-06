@@ -103,9 +103,9 @@ function App() {
       <CssBaseline />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <AlertProvider>
-          <AuthProvider>
-            <ThemeProviderCustom mode={mode} toggleTheme={toggleTheme}>
-              <Router>
+          <Router>
+            <AuthProvider>
+              <ThemeProviderCustom mode={mode} toggleTheme={toggleTheme}>
                 <AlertManager />
                 <Routes>
                   <Route path="/login" element={<LoginPage />} />
@@ -130,9 +130,9 @@ function App() {
                   </Route>
                   <Route path="*" element={<Navigate to="/dashboard" replace />} />
                 </Routes>
-              </Router>
-            </ThemeProviderCustom>
-          </AuthProvider>
+              </ThemeProviderCustom>
+            </AuthProvider>
+          </Router>
         </AlertProvider>
       </LocalizationProvider>
     </ThemeProvider>
