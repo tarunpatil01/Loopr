@@ -16,6 +16,12 @@ dotenv.config();
 const app = express();
 app.set('trust proxy', 1); // or true
 
+// CORS configuration (must be before any other middleware)
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'https://loopr-tarunp.vercel.app',
+  credentials: true,
+}));
+
 // Rate limiting
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 minutes
