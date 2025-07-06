@@ -22,6 +22,9 @@ app.use(cors({
   credentials: true,
 }));
 
+// Security middleware
+app.use(helmet());
+
 // Rate limiting
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 minutes
