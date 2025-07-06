@@ -12,7 +12,6 @@ import DashboardPage from './pages/DashboardPage';
 import TransactionsPage from './pages/TransactionsPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import WalletPage from './pages/WalletPage';
-// import PersonalPage from './pages/PersonalPage';
 import MessagePage from './pages/MessagePage';
 import SettingsPage from './pages/SettingsPage';
 import ProfilePage from './pages/ProfilePage';

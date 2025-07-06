@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { authService } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -7,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const initAuth = () => {
@@ -23,6 +25,18 @@ export const AuthProvider = ({ children }) => {
 
     initAuth();
   }, []);
+
+  useEffect(() => {
+    // Listen for unauthorized event from Axios
+    const handleUnauthorized = () => {
+      setUser(null);
+      navigate('/login');
+    };
+    window.addEventListener('unauthorized', handleUnauthorized);
+    return () => {
+      window.removeEventListener('unauthorized', handleUnauthorized);
+    };
+  }, [navigate]);
 
   const login = async (email, password) => {
     try {
