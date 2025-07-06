@@ -16,17 +16,6 @@ dotenv.config();
 const app = express();
 app.set('trust proxy', 1); // or true
 
-const PORT = process.env.PORT || 5000;
-
-// CORS configuration (move to the very top)
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://loopr-tarunp.vercel.app',
-  credentials: true,
-}));
-
-// Security middleware
-app.use(helmet());
-
 // Rate limiting
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 minutes
