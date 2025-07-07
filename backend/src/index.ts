@@ -1,15 +1,9 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
+import mongoose from 'mongoose';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
-
-// Import routes
-import authRoutes from './routes/auth';
-import transactionRoutes from './routes/transactions';
-import userRoutes from './routes/users';
-import exportRoutes from './routes/export';
 
 // Load environment variables
 dotenv.config();
@@ -24,6 +18,14 @@ app.use(cors({
 
 // Security middleware
 app.use(helmet());
+
+// Import routes
+import authRoutes from './routes/auth';
+import transactionRoutes from './routes/transactions';
+import userRoutes from './routes/users';
+import exportRoutes from './routes/export';
+
+
 
 // Rate limiting
 const limiter = rateLimit({
