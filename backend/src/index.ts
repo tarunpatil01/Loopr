@@ -1,5 +1,5 @@
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -16,8 +16,6 @@ app.use(cors({
   credentials: true,
 }));
 
-// Security middleware
-app.use(helmet());
 
 // Import routes
 import authRoutes from './routes/auth';
@@ -25,7 +23,8 @@ import transactionRoutes from './routes/transactions';
 import userRoutes from './routes/users';
 import exportRoutes from './routes/export';
 
-
+// Security middleware
+app.use(helmet());
 
 // Rate limiting
 const limiter = rateLimit({
